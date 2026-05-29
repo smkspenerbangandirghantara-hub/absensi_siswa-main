@@ -1,0 +1,1366 @@
+[
+  {
+    "id": "TC001",
+    "title": "Admin can log in and land on admin dashboard",
+    "description": "Verifies an admin can authenticate with NIP/NIS and password and is redirected to the admin dashboard showing admin-only content.",
+    "category": "User Login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the NIP/NIS field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user lands on the admin dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify admin dashboard summary stats are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "Teacher can record attendance for a class and date",
+    "description": "Verifies a Guru can select a class and date, mark every student’s attendance, submit, and see a recorded confirmation.",
+    "category": "Attendance Recording (Guru)",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to the attendance recording page"
+      },
+      {
+        "type": "action",
+        "description": "Select a class for attendance"
+      },
+      {
+        "type": "action",
+        "description": "Select a valid date for attendance"
+      },
+      {
+        "type": "action",
+        "description": "Mark a valid attendance status for each student in the list"
+      },
+      {
+        "type": "action",
+        "description": "Submit attendance"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a success confirmation is visible indicating attendance was recorded"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC003",
+    "title": "Guru can log in and land on teacher dashboard",
+    "description": "Verifies a teacher can authenticate and is redirected to the teacher dashboard showing teacher-only content.",
+    "category": "User Login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the NIP/NIS field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user lands on the teacher dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the class list or attendance status overview is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC004",
+    "title": "Siswa can log in and land on student dashboard",
+    "description": "Verifies a student can authenticate and is redirected to the student dashboard showing student-only content.",
+    "category": "User Login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the NIP/NIS field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user lands on the student dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify attendance stats and a class leaderboard section are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC005",
+    "title": "Teacher cannot submit attendance with incomplete student statuses",
+    "description": "Verifies a Guru is prompted to complete required attendance entries before submission succeeds.",
+    "category": "Attendance Recording (Guru)",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to the attendance recording page"
+      },
+      {
+        "type": "action",
+        "description": "Select a class for attendance"
+      },
+      {
+        "type": "action",
+        "description": "Select a valid date for attendance"
+      },
+      {
+        "type": "action",
+        "description": "Mark attendance status for only some students, leaving at least one student unmarked"
+      },
+      {
+        "type": "action",
+        "description": "Submit attendance"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a validation prompt is visible requesting completion of required attendance entries"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC006",
+    "title": "Admin can add a new student and see it appear in the list",
+    "description": "Verifies an admin can create a student record through the UI and the new record appears in the student table.",
+    "category": "Student Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the NIP/NIS field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to open student management"
+      },
+      {
+        "type": "action",
+        "description": "Open the add-student form"
+      },
+      {
+        "type": "action",
+        "description": "Fill Test Siswa A into the student name field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a unique valid NIS into the NIS field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the student form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new student appears in the student list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC007",
+    "title": "Teacher starts attendance workflow for a class from dashboard",
+    "description": "Teacher can start attendance from a class card and is taken into the attendance recording workflow for that class.",
+    "category": "Teacher Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to open the teacher dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Click the action to start attendance for one class"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the attendance recording page is displayed for the selected class"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a student list with attendance status controls is available to be filled"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC008",
+    "title": "Admin can add a new teacher record",
+    "description": "Verifies an Admin can create a teacher and the new teacher appears in the teacher list.",
+    "category": "Teacher Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to the teacher management page"
+      },
+      {
+        "type": "action",
+        "description": "Open the add-teacher form"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Guru UI Test 1\" into the teacher name field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a unique valid NIP into the teacher identifier field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the teacher form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the newly created teacher is visible in the teacher list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC009",
+    "title": "Admin views and filters leaderboard by class",
+    "description": "Admin can open the leaderboard, view ranked results, apply a class filter, and see the ranking update to that class only.",
+    "category": "Leaderboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to open the admin leaderboard"
+      },
+      {
+        "type": "action",
+        "description": "Select a class in the class filter"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the leaderboard table is displayed with ranked student rows"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the displayed leaderboard results reflect only the selected class"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC010",
+    "title": "Admin can edit an existing teacher record",
+    "description": "Verifies an Admin can update teacher data and the updated teacher appears in the list.",
+    "category": "Teacher Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to the teacher management page"
+      },
+      {
+        "type": "action",
+        "description": "Open the add-teacher form"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Guru Edit 1\" into the teacher name field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a unique valid NIP into the teacher identifier field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the teacher form"
+      },
+      {
+        "type": "action",
+        "description": "Open the edit form for the teacher named \"Guru Edit 1\""
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Guru Edit 1 Updated\" into the teacher name field"
+      },
+      {
+        "type": "action",
+        "description": "Save the teacher changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated teacher name \"Guru Edit 1 Updated\" is visible in the teacher list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC011",
+    "title": "Admin can edit an existing student and see updated data in the list",
+    "description": "Verifies an admin can update a student record via the edit form and the list reflects the change.",
+    "category": "Student Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the NIP/NIS field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to open student management"
+      },
+      {
+        "type": "action",
+        "description": "Open the add-student form"
+      },
+      {
+        "type": "action",
+        "description": "Fill Test Siswa Edit into the student name field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a unique valid NIS into the NIS field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the student form"
+      },
+      {
+        "type": "action",
+        "description": "Open the edit form for the created student"
+      },
+      {
+        "type": "action",
+        "description": "Fill Test Siswa Edited into the student name field"
+      },
+      {
+        "type": "action",
+        "description": "Save changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the student list shows the updated student name"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC012",
+    "title": "Admin can delete a student and it disappears from the list",
+    "description": "Verifies an admin can delete a student record and the student no longer appears in the student table.",
+    "category": "Student Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the NIP/NIS field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to open student management"
+      },
+      {
+        "type": "action",
+        "description": "Open the add-student form"
+      },
+      {
+        "type": "action",
+        "description": "Fill Test Siswa Delete into the student name field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a unique valid NIS into the NIS field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the student form"
+      },
+      {
+        "type": "action",
+        "description": "Trigger delete for the created student"
+      },
+      {
+        "type": "action",
+        "description": "Confirm deletion"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the deleted student no longer appears in the student list"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC013",
+    "title": "Admin dashboard shows stats, weekly attendance chart, and top leaderboard preview",
+    "description": "Verifies the admin dashboard renders the key summary widgets and leaderboard preview for quick monitoring.",
+    "category": "Admin Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the NIP/NIS field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to open the admin dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify stat cards and the weekly attendance chart are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a top leaderboard preview list is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC014",
+    "title": "Admin can delete a teacher record",
+    "description": "Verifies an Admin can delete a teacher and the teacher no longer appears in the list.",
+    "category": "Teacher Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to the teacher management page"
+      },
+      {
+        "type": "action",
+        "description": "Open the add-teacher form"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Guru Hapus 1\" into the teacher name field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a unique valid NIP into the teacher identifier field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the teacher form"
+      },
+      {
+        "type": "action",
+        "description": "Delete the teacher named \"Guru Hapus 1\""
+      },
+      {
+        "type": "action",
+        "description": "Confirm the deletion in the app confirmation UI"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the deleted teacher is no longer visible in the teacher list"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC015",
+    "title": "Teacher dashboard shows class assignments and today attendance status",
+    "description": "Teacher can open their dashboard and see summary stat cards plus assigned classes with each class's attendance status for today.",
+    "category": "Teacher Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to open the teacher dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify teacher dashboard stat cards are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify assigned class cards are displayed with an attendance status for today"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC016",
+    "title": "SPK criteria weights can be updated and saved by Admin",
+    "description": "Verifies an Admin can edit SPK criteria weights, save them, and see the updated weights reflected on the page.",
+    "category": "SPK Configuration",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to the SPK configuration page"
+      },
+      {
+        "type": "action",
+        "description": "Edit one SPK criterion weight to a different valid value"
+      },
+      {
+        "type": "action",
+        "description": "Save the SPK criteria weights"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a success confirmation is visible and the updated weight is reflected in the criteria list"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC017",
+    "title": "Student dashboard shows attendance summary, chart, and top 5 class leaderboard",
+    "description": "Student can open their dashboard and see their profile summary, attendance percentage/counts, monthly attendance chart, and top 5 class leaderboard.",
+    "category": "Student Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to open the student dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the student profile summary card is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify attendance summary stats, a monthly attendance chart, and a top class leaderboard section are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC018",
+    "title": "Admin can search students by name or NIS",
+    "description": "Verifies an admin can filter the student table using the search field and see matching results.",
+    "category": "Student Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the NIP/NIS field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to open student management"
+      },
+      {
+        "type": "action",
+        "description": "Open the add-student form"
+      },
+      {
+        "type": "action",
+        "description": "Fill Test Siswa Search into the student name field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a unique valid NIS into the NIS field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the student form"
+      },
+      {
+        "type": "action",
+        "description": "Fill Test Siswa Search into the search field"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the student list shows the matching student and is filtered"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC019",
+    "title": "Admin can search teachers by name or NIP",
+    "description": "Verifies an Admin can filter the teacher list using search and only matching teachers are shown.",
+    "category": "Teacher Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to the teacher management page"
+      },
+      {
+        "type": "action",
+        "description": "Open the add-teacher form"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Guru Cari 1\" into the teacher name field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a unique valid NIP into the teacher identifier field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the teacher form"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Guru Cari 1\" into the teacher search field"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the teacher list shows the matching teacher result"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC020",
+    "title": "Student views class leaderboard and own rank context",
+    "description": "Student can open the leaderboard page and see the class ranking list along with their own position context.",
+    "category": "Leaderboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to open the student leaderboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the class leaderboard list/table is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the student's own rank context is displayed within the leaderboard view"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC021",
+    "title": "SPK configuration blocks saving invalid weight totals",
+    "description": "Verifies the Admin cannot save SPK criteria weights that violate validation rules and sees an instructive validation error.",
+    "category": "SPK Configuration",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to the SPK configuration page"
+      },
+      {
+        "type": "action",
+        "description": "Edit SPK criterion weights so the total becomes invalid according to the page rules"
+      },
+      {
+        "type": "action",
+        "description": "Save the SPK criteria weights"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a validation error is visible indicating the weights must be corrected"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC022",
+    "title": "Invalid credentials show a login error",
+    "description": "Verifies a user entering an incorrect NIP/NIS or password cannot log in and sees an invalid-credentials error.",
+    "category": "User Login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill INVALID_USER into the NIP/NIS field"
+      },
+      {
+        "type": "action",
+        "description": "Fill INVALID_PASSWORD into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a login validation error is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user remains on the login page"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC023",
+    "title": "Teacher navigates to attendance recap from dashboard",
+    "description": "Teacher can navigate from the dashboard to the recap page and see recap/report content or an empty state.",
+    "category": "Teacher Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to open the teacher dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation to open attendance recap"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the teacher recap page is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify recap content is shown or a clear empty state message is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC024",
+    "title": "Admin dashboard quick action opens SPK configuration",
+    "description": "Verifies an admin can use the dashboard quick action to reach SPK weight configuration.",
+    "category": "Admin Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the NIP/NIS field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the dashboard quick action to open SPK configuration"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the SPK criteria configuration view is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC025",
+    "title": "Student navigates from dashboard to attendance history",
+    "description": "Student can move from the dashboard to the attendance history page and see their attendance records list or an empty state.",
+    "category": "Student Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to open the student dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to view attendance history"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the student attendance history view is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify attendance history shows records or a clear empty state message"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC026",
+    "title": "Admin sees validation when required teacher fields are missing",
+    "description": "Verifies the add-teacher form blocks submission when required fields are empty and shows validation feedback.",
+    "category": "Teacher Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to the teacher management page"
+      },
+      {
+        "type": "action",
+        "description": "Open the add-teacher form"
+      },
+      {
+        "type": "action",
+        "description": "Submit the teacher form without filling required fields"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify required-field validation errors are visible"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC027",
+    "title": "Admin dashboard can navigate to full leaderboard",
+    "description": "Verifies an admin can navigate from the dashboard leaderboard preview to the full leaderboard page.",
+    "category": "Admin Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the NIP/NIS field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the control to view the full leaderboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the admin leaderboard page is displayed"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC028",
+    "title": "Student navigates from dashboard to full class leaderboard",
+    "description": "Student can open the full leaderboard from the dashboard and see the same class ranking context on the leaderboard page.",
+    "category": "Student Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to open the student dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to view the full class leaderboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the student leaderboard page is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the class ranking list/table and the student's rank context are displayed"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC029",
+    "title": "Admin exports current filtered leaderboard view to PDF",
+    "description": "Admin can export the currently filtered leaderboard view to a PDF and sees an in-app PDF preview/opened document result.",
+    "category": "Leaderboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to open the admin leaderboard"
+      },
+      {
+        "type": "action",
+        "description": "Select a class in the class filter"
+      },
+      {
+        "type": "action",
+        "description": "Click the export to PDF action"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a PDF preview or opened PDF view is presented to the user"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC030",
+    "title": "Admin import workflow shows validation error for unsupported file type",
+    "description": "Verifies the bulk import flow blocks unsupported file formats and shows a validation error before importing.",
+    "category": "Student Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the NIP/NIS field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to open student management"
+      },
+      {
+        "type": "action",
+        "description": "Open the import students workflow"
+      },
+      {
+        "type": "action",
+        "description": "Select an unsupported file type in the file picker"
+      },
+      {
+        "type": "action",
+        "description": "Confirm the import/upload step"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an import validation error is visible"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC031",
+    "title": "Admin leaderboard handles empty state gracefully",
+    "description": "Admin can open the leaderboard and, when no results are available, an empty state is shown instead of a broken table.",
+    "category": "Leaderboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to open the admin leaderboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the page shows either ranked results or a clear empty state message"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the page remains usable with filters/export controls available or disabled appropriately"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC032",
+    "title": "Password visibility toggle reveals and masks password input",
+    "description": "Verifies the user can toggle password visibility on the login form without losing the entered value.",
+    "category": "User Login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill any valid-looking password into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Toggle password visibility to reveal the password"
+      },
+      {
+        "type": "action",
+        "description": "Toggle password visibility to hide the password"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the password field still contains the entered value"
+      }
+    ],
+    "priority": "Low"
+  }
+]
