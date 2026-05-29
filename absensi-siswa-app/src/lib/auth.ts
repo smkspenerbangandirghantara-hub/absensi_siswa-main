@@ -15,8 +15,9 @@ export const auth = betterAuth({
     "https://absensi-siswa-smk.vercel.app",
     "https://absensi-siswa-mu.vercel.app",
     "https://absensi-siswa-git-main-brongskuys-projects.vercel.app",
+    "https://absensisiswa-main-bzjg5eu66.vercel.app",
     process.env.BETTER_AUTH_URL || "",
-  ],
+  ].filter(Boolean),
 
   emailAndPassword: {
     enabled: true,
