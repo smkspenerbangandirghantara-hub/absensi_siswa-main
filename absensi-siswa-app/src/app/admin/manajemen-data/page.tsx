@@ -13,7 +13,8 @@ import {
   Plus,
   CheckCircle2,
   CalendarPlus,
-  RefreshCw
+  RefreshCw,
+  Pencil
 } from "lucide-react";
 import { toast } from "sonner";
 import { getTodayWIB } from "@/lib/utils";
@@ -62,8 +63,12 @@ export default function ManajemenDataPage() {
   const [newIsActive, setNewIsActive] = useState(false);
   const [submittingYear, setSubmittingYear] = useState(false);
 
-  // Controlled delete dialog state
+  // Controlled delete & edit dialog state
   const [yearToDelete, setYearToDelete] = useState<AcademicYear | null>(null);
+  const [yearToEdit, setYearToEdit] = useState<AcademicYear | null>(null);
+  const [editTahunAjaran, setEditTahunAjaran] = useState("");
+  const [editSemester, setEditSemester] = useState<"Ganjil" | "Genap">("Ganjil");
+  const [submittingEditYear, setSubmittingEditYear] = useState(false);
 
   const fetchAcademicYears = async () => {
     setLoadingYears(true);
@@ -156,6 +161,52 @@ export default function ManajemenDataPage() {
       toast.error(error.message || "Gagal menambahkan periode baru.");
     } finally {
       setSubmittingYear(false);
+    }
+  };
+
+  const handleOpenEditModal = (year: AcademicYear) => {
+    setYearToEdit(year);
+    setEditTahunAjaran(year.tahunAjaran);
+    setEditSemester(year.semester);
+  };
+
+  const handleEditYear = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!yearToEdit) return;
+
+    if (!editTahunAjaran) {
+      toast.error("Tahun ajaran wajib diisi (contoh: 2025/2026)");
+      return;
+    }
+
+    const yearPattern = /^\d{4}\/\d{4}$/;
+    if (!yearPattern.test(editTahunAjaran)) {
+      toast.error("Format Tahun Ajaran harus YYYY/YYYY (contoh: 2025/2026)");
+      return;
+    }
+
+    setSubmittingEditYear(true);
+    try {
+      const res = await fetch("/api/system/academic-years", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: yearToEdit.id,
+          tahunAjaran: editTahunAjaran,
+          semester: editSemester,
+        }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Gagal mengedit periode");
+      }
+      toast.success("Periode tahun ajaran berhasil diperbarui!");
+      setYearToEdit(null);
+      fetchAcademicYears();
+    } catch (error: any) {
+      toast.error(error.message || "Gagal memperbarui periode.");
+    } finally {
+      setSubmittingEditYear(false);
     }
   };
 
@@ -313,28 +364,39 @@ export default function ManajemenDataPage() {
                             )}
                           </TableCell>
                           <TableCell className="py-3.5 text-right">
-                            <div className="flex justify-end items-center gap-2">
-                              {!year.isActive && (
-                                <>
-                                  <Button
-                                    variant="outline"
-                                    size="xs"
-                                    onClick={() => handleSetActive(year.id)}
-                                    className="border-emerald-200 text-emerald-600 hover:bg-emerald-50 hover:text-emerald-700 text-xs py-1 h-7"
-                                  >
-                                    <RefreshCw className="h-3 w-3 mr-1" />
-                                    Set Aktif
-                                  </Button>
-                                  <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    onClick={() => setYearToDelete(year)}
-                                    className="h-7 w-7 text-gray-400 hover:text-red-600 hover:bg-red-50"
-                                  >
-                                    <Trash2 className="h-4 w-4" />
-                                  </Button>
-                                </>
-                              )}
+                            <div className="flex justify-end items-center gap-1.5">
+                              <Button
+                                variant="outline"
+                                size="xs"
+                                onClick={() => handleSetActive(year.id)}
+                                disabled={year.isActive}
+                                title={year.isActive ? "Periode ini sudah aktif" : "Set Aktif"}
+                                className={`border-emerald-200 text-emerald-600 hover:bg-emerald-50 hover:text-emerald-700 text-xs py-1 h-7 ${year.isActive ? "opacity-50 cursor-not-allowed" : ""}`}
+                              >
+                                <RefreshCw className="h-3 w-3 mr-1" />
+                                Set Aktif
+                              </Button>
+
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => handleOpenEditModal(year)}
+                                title="Edit Periode"
+                                className="h-7 w-7 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+                              >
+                                <Pencil className="h-4 w-4" />
+                              </Button>
+
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => setYearToDelete(year)}
+                                disabled={year.isActive}
+                                title={year.isActive ? "Periode aktif tidak dapat dihapus" : "Hapus Periode"}
+                                className={`h-7 w-7 text-gray-400 hover:text-red-600 hover:bg-red-50 ${year.isActive ? "opacity-40 cursor-not-allowed hover:bg-transparent hover:text-gray-400" : ""}`}
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
                             </div>
                           </TableCell>
                         </TableRow>
@@ -490,6 +552,74 @@ export default function ManajemenDataPage() {
               >
                 {submittingYear ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
                 Simpan
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Academic Year Dialog */}
+      <Dialog open={!!yearToEdit} onOpenChange={(open) => { if (!open) setYearToEdit(null); }}>
+        <DialogContent className="sm:max-w-[425px]">
+          <form onSubmit={handleEditYear}>
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2 text-blue-900">
+                <Pencil className="h-5 w-5 text-blue-600" />
+                Edit Periode Ajaran
+              </DialogTitle>
+              <DialogDescription>
+                Ubah informasi tahun ajaran dan semester.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Label htmlFor="editTahunAjaran" className="text-sm font-medium">Tahun Ajaran</Label>
+                <Input
+                  id="editTahunAjaran"
+                  placeholder="Contoh: 2025/2026"
+                  value={editTahunAjaran}
+                  onChange={(e) => setEditTahunAjaran(e.target.value)}
+                  className="focus-visible:ring-blue-500"
+                  maxLength={9}
+                />
+                <span className="text-[10px] text-gray-400">Gunakan format YYYY/YYYY (contoh: 2025/2026)</span>
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="editSemester" className="text-sm font-medium">Semester</Label>
+                <Select
+                  value={editSemester}
+                  onValueChange={(val) => {
+                    if (val === "Ganjil" || val === "Genap") {
+                      setEditSemester(val);
+                    }
+                  }}
+                >
+                  <SelectTrigger id="editSemester" className="focus:ring-blue-500">
+                    <SelectValue placeholder="Pilih Semester" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Ganjil">Ganjil</SelectItem>
+                    <SelectItem value="Genap">Genap</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setYearToEdit(null)}
+                disabled={submittingEditYear}
+              >
+                Batal
+              </Button>
+              <Button
+                type="submit"
+                className="bg-blue-600 hover:bg-blue-700 text-white shadow-md"
+                disabled={submittingEditYear}
+              >
+                {submittingEditYear ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+                Simpan Perubahan
               </Button>
             </DialogFooter>
           </form>
