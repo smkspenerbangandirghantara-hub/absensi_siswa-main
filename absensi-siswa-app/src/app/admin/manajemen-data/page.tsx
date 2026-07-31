@@ -68,6 +68,7 @@ export default function ManajemenDataPage() {
   const [yearToEdit, setYearToEdit] = useState<AcademicYear | null>(null);
   const [editTahunAjaran, setEditTahunAjaran] = useState("");
   const [editSemester, setEditSemester] = useState<"Ganjil" | "Genap">("Ganjil");
+  const [editIsActive, setEditIsActive] = useState(false);
   const [submittingEditYear, setSubmittingEditYear] = useState(false);
 
   const fetchAcademicYears = async () => {
@@ -168,6 +169,7 @@ export default function ManajemenDataPage() {
     setYearToEdit(year);
     setEditTahunAjaran(year.tahunAjaran);
     setEditSemester(year.semester);
+    setEditIsActive(year.isActive);
   };
 
   const handleEditYear = async (e: React.FormEvent) => {
@@ -194,6 +196,7 @@ export default function ManajemenDataPage() {
           id: yearToEdit.id,
           tahunAjaran: editTahunAjaran,
           semester: editSemester,
+          isActive: editIsActive,
         }),
       });
       if (!res.ok) {
@@ -345,68 +348,71 @@ export default function ManajemenDataPage() {
                         </TableCell>
                       </TableRow>
                     ) : (
-                      academicYears.map((year) => (
-                        <TableRow 
-                          key={year.id} 
-                          className={`transition-colors duration-150 ${year.isActive ? "bg-blue-50/30 hover:bg-blue-50/50 font-medium" : "hover:bg-gray-50/50"}`}
-                        >
-                          <TableCell className="py-3.5 text-gray-900">{year.tahunAjaran}</TableCell>
-                          <TableCell className="py-3.5 text-gray-900">{year.semester}</TableCell>
-                          <TableCell className="py-3.5 text-center">
-                            {year.isActive ? (
-                              <Badge className="bg-emerald-100 text-emerald-800 border border-emerald-200 hover:bg-emerald-100 font-semibold px-2 py-0.5">
-                                Aktif
-                              </Badge>
-                            ) : (
-                              <Badge variant="secondary" className="bg-gray-100 text-gray-500 hover:bg-gray-100 px-2 py-0.5">
-                                Tidak Aktif
-                              </Badge>
-                            )}
-                          </TableCell>
-                          <TableCell className="py-3.5 text-right pr-4">
-                            <div className="flex justify-end items-center gap-2">
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => handleSetActive(year.id)}
-                                disabled={year.isActive}
-                                title={year.isActive ? "Periode ini sedang aktif" : "Set Aktif"}
-                                className={`border-emerald-200 text-emerald-600 hover:bg-emerald-50 hover:text-emerald-700 text-xs py-1 h-7 ${
-                                  year.isActive ? "opacity-50 cursor-not-allowed bg-emerald-50/50" : ""
-                                }`}
-                              >
-                                <RefreshCw className="h-3.5 w-3.5 mr-1" />
-                                {year.isActive ? "Aktif" : "Set Aktif"}
-                              </Button>
+                      academicYears.map((year) => {
+                        const isSoleActive = year.isActive && academicYears.filter((y) => y.isActive).length === 1;
+                        return (
+                          <TableRow 
+                            key={year.id} 
+                            className={`transition-colors duration-150 ${year.isActive ? "bg-blue-50/30 hover:bg-blue-50/50 font-medium" : "hover:bg-gray-50/50"}`}
+                          >
+                            <TableCell className="py-3.5 text-gray-900">{year.tahunAjaran}</TableCell>
+                            <TableCell className="py-3.5 text-gray-900">{year.semester}</TableCell>
+                            <TableCell className="py-3.5 text-center">
+                              {year.isActive ? (
+                                <Badge className="bg-emerald-100 text-emerald-800 border border-emerald-200 hover:bg-emerald-100 font-semibold px-2 py-0.5">
+                                  Aktif
+                                </Badge>
+                              ) : (
+                                <Badge variant="secondary" className="bg-gray-100 text-gray-500 hover:bg-gray-100 px-2 py-0.5">
+                                  Tidak Aktif
+                                </Badge>
+                              )}
+                            </TableCell>
+                            <TableCell className="py-3.5 text-right pr-4">
+                              <div className="flex justify-end items-center gap-2">
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => handleSetActive(year.id)}
+                                  disabled={isSoleActive}
+                                  title={isSoleActive ? "Periode ini sedang aktif" : "Set Aktif"}
+                                  className={`border-emerald-200 text-emerald-600 hover:bg-emerald-50 hover:text-emerald-700 text-xs py-1 h-7 ${
+                                    isSoleActive ? "opacity-50 cursor-not-allowed bg-emerald-50/50" : ""
+                                  }`}
+                                >
+                                  <RefreshCw className="h-3.5 w-3.5 mr-1" />
+                                  {year.isActive ? "Aktif" : "Set Aktif"}
+                                </Button>
 
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                onClick={() => handleOpenEditModal(year)}
-                                title="Edit Periode"
-                                className="h-8 w-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
-                              >
-                                <Pencil className="h-4 w-4" />
-                              </Button>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  onClick={() => handleOpenEditModal(year)}
+                                  title="Edit Periode"
+                                  className="h-8 w-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+                                >
+                                  <Pencil className="h-4 w-4" />
+                                </Button>
 
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                onClick={() => setYearToDelete(year)}
-                                disabled={year.isActive}
-                                title={year.isActive ? "Periode aktif tidak dapat dihapus" : "Hapus Periode"}
-                                className={`h-8 w-8 ${
-                                  year.isActive 
-                                    ? "opacity-30 cursor-not-allowed text-gray-300" 
-                                    : "text-red-500 hover:text-red-600 hover:bg-red-50"
-                                }`}
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  onClick={() => setYearToDelete(year)}
+                                  disabled={isSoleActive}
+                                  title={isSoleActive ? "Periode aktif utama tidak dapat dihapus" : "Hapus Periode"}
+                                  className={`h-8 w-8 ${
+                                    isSoleActive 
+                                      ? "opacity-30 cursor-not-allowed text-gray-300" 
+                                      : "text-red-500 hover:text-red-600 hover:bg-red-50"
+                                  }`}
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })
                     )}
                   </TableBody>
                 </Table>
@@ -608,6 +614,18 @@ export default function ManajemenDataPage() {
                     <SelectItem value="Genap">Genap</SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+              <div className="flex items-center gap-2 pt-2">
+                <input
+                  type="checkbox"
+                  id="editIsActive"
+                  checked={editIsActive}
+                  onChange={(e) => setEditIsActive(e.target.checked)}
+                  className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <Label htmlFor="editIsActive" className="text-sm font-normal text-gray-700 cursor-pointer">
+                  Jadikan periode aktif saat ini
+                </Label>
               </div>
             </div>
             <DialogFooter>
