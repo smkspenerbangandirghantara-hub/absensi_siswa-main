@@ -325,7 +325,7 @@ export default function ManajemenDataPage() {
                       <TableHead className="font-semibold text-gray-700">Tahun Ajaran</TableHead>
                       <TableHead className="font-semibold text-gray-700">Semester</TableHead>
                       <TableHead className="font-semibold text-gray-700 text-center">Status</TableHead>
-                      <TableHead className="font-semibold text-gray-700 text-right">Aksi</TableHead>
+                      <TableHead className="font-semibold text-gray-700 text-right pr-4 min-w-[140px]">Aksi</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -363,18 +363,20 @@ export default function ManajemenDataPage() {
                               </Badge>
                             )}
                           </TableCell>
-                          <TableCell className="py-3.5 text-right">
-                            <div className="flex justify-end items-center gap-1.5">
+                          <TableCell className="py-3.5 text-right pr-4">
+                            <div className="flex justify-end items-center gap-2">
                               <Button
                                 variant="outline"
-                                size="xs"
+                                size="sm"
                                 onClick={() => handleSetActive(year.id)}
                                 disabled={year.isActive}
-                                title={year.isActive ? "Periode ini sudah aktif" : "Set Aktif"}
-                                className={`border-emerald-200 text-emerald-600 hover:bg-emerald-50 hover:text-emerald-700 text-xs py-1 h-7 ${year.isActive ? "opacity-50 cursor-not-allowed" : ""}`}
+                                title={year.isActive ? "Periode ini sedang aktif" : "Set Aktif"}
+                                className={`border-emerald-200 text-emerald-600 hover:bg-emerald-50 hover:text-emerald-700 text-xs py-1 h-7 ${
+                                  year.isActive ? "opacity-50 cursor-not-allowed bg-emerald-50/50" : ""
+                                }`}
                               >
-                                <RefreshCw className="h-3 w-3 mr-1" />
-                                Set Aktif
+                                <RefreshCw className="h-3.5 w-3.5 mr-1" />
+                                {year.isActive ? "Aktif" : "Set Aktif"}
                               </Button>
 
                               <Button
@@ -382,7 +384,7 @@ export default function ManajemenDataPage() {
                                 size="icon"
                                 onClick={() => handleOpenEditModal(year)}
                                 title="Edit Periode"
-                                className="h-7 w-7 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+                                className="h-8 w-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
                               >
                                 <Pencil className="h-4 w-4" />
                               </Button>
@@ -393,7 +395,11 @@ export default function ManajemenDataPage() {
                                 onClick={() => setYearToDelete(year)}
                                 disabled={year.isActive}
                                 title={year.isActive ? "Periode aktif tidak dapat dihapus" : "Hapus Periode"}
-                                className={`h-7 w-7 text-gray-400 hover:text-red-600 hover:bg-red-50 ${year.isActive ? "opacity-40 cursor-not-allowed hover:bg-transparent hover:text-gray-400" : ""}`}
+                                className={`h-8 w-8 ${
+                                  year.isActive 
+                                    ? "opacity-30 cursor-not-allowed text-gray-300" 
+                                    : "text-red-500 hover:text-red-600 hover:bg-red-50"
+                                }`}
                               >
                                 <Trash2 className="h-4 w-4" />
                               </Button>
